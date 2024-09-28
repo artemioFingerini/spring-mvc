@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Controller
+@Controller()
+
 public class CarController {
     @Autowired
     private CarServiceImpl carService;
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/cars";
+    }
     @GetMapping(value = "/cars")
     public String printList(@RequestParam(value = "count",required = false,defaultValue = "5") int count,Model model) {
         List<Car> cars = new ArrayList<>();
@@ -28,5 +33,4 @@ public class CarController {
         model.addAttribute("cars",carService.showCountOfCar(cars,count));
         return "cars";
     }
-
 }
